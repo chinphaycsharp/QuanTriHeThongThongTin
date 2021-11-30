@@ -1,0 +1,80 @@
+﻿@model PagedList.IPagedList<Model.EF.m_login>
+@using PagedList.Mvc
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+@section jsFooter{
+    <script src="/Assets/admin-index/Controller/userController.js"></script>
+}
+<br />
+<div class="au-breadcrumb-content">
+    @using (Html.BeginForm("Index", "Account", FormMethod.Get))
+    {
+        <form class="au-form-icon--sm" action="" method="post">
+            <input style="margin-left:1300px;border-radius:10px" class="au-input--w300 au-input--style2" type="text" name="Search" placeholder="Search for datas &amp; reports...">
+            <button class="au-btn-submit2" type="submit">
+                <i class="fa fa-search"></i>
+            </button>
+        </form>
+    }
+</div>
+<div class="card-header py-3">
+  
+</div>
+<br />
+
+<div class="bs-example widget-shadow" style="margin-left:25px">
+    <h4 style="margin-left:20px">Danh sách tài khoản:</h4>
+    <table class="table table-bordered" style="margin-left:20px">
+        <thead>
+            <tr>
+                <th>STT</th>
+                <th>Taì khoản</th>
+                <th>Email</th>
+                <th>Address</th>
+                <th>Phone</th>
+                <th>Quyền</th>
+                <th>Trạng thái</th>
+                <th>Ngày tạo</th>
+                <th colspan="2">
+                    Chức năng
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr id="row_@item.Id">
+                <th>@item.Id</th>
+                <th>@item.Name_user</th>
+                <th>@item.Email</th>
+                <th>@item.Addrress</th>
+                <th>@item.Phone</th>
+                <th>@(
+                        if(Convert.ToInt32(item.Permission) > 0)
+                        {
+                        
+                        }
+                    )</th>
+                <th><a href="#" class="btn-active" data-id="@item.Id">@(Convert.ToInt32(item.Status_user) > 0 ? "Active" : "Block")</a></th>
+                <th>@item.CreatedDate</th>
+                <td>
+                    <button class="btn btn-primary" style=""><a href="/Admin/Account/Edit/@item.Id" style="color:#000000">Sửa</a></button>
+                    <button class="btn btn-success"><a href="/Admin/Account/EditPermission/@item.Id" style="color:#000000">Sửa quyền người dùng</a></button>
+                    @Ajax.ActionLink("Xoá", "Delete", new { @id = item.Id }, new AjaxOptions
+               {
+                   Confirm = "Bạn có chắc muốn xóa bản ghi này ?",
+                   OnComplete = "$('#row_" + @item.Id + "').remove()",
+                   HttpMethod = "Delete"
+               }, new { @class = "btn btn-warning" })
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+    <div class="page-wrapper >
+        @Html.PagedListPager(Model, page => Url.Action("Index", "Account", new { page }))
+    </div>
+</div>

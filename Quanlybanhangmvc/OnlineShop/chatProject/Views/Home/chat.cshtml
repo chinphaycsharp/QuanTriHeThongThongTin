@@ -1,0 +1,59 @@
+﻿
+@{
+    ViewBag.Title = "chat";
+}
+
+<h2>chat</h2>
+@*<div class="container" id="divlogin">
+    <input type="text" id="txtName" placeholder="nhập tên"/>
+    <button class="btn btn-success" id="btnlogin">Login</button>
+    <input type="hidden"  id="hNanme"/>
+</div>*@
+<div class="container" id="divChat">
+    <h2 id="welcome"></h2>
+    <input type="text" id="txtMessage" placeholder="nhập tin nhắn"/>
+    <button class="btn btn-success" id="btnSend">Send</button>
+</div>
+<div class="container">
+    <ul id="content">
+    </ul>
+</div>
+<h1>@ViewBag.message</h1>
+
+@section scripts
+{
+    <script>
+
+        $(function () {
+            
+            var chat = $.connection.DemoChat;
+            console.log(chat);
+            loadClient(chat);
+            $.connection.hub.start().done(function () {
+                $('#btnlogin').click(function () {
+                    var name = $('#txtName').val();
+                    chat.server.connect(name);
+                    $('#welcome').html("Xin chào : " + name);
+                    show();
+                });
+
+                $('#btnSend').click(function () {
+                    var msg = $('#txtMessage').val();
+                    var name = $('#hNanme').val();
+                    chat.server.message(msg);
+                    $('#txtMessage').val(' ').focus();
+                });
+            })
+
+        })
+
+        function loadClient(chat) {
+            console.log(chat);
+            chat.client.message = function (msg) {
+                console.log(msg);
+                $('#content').append("<li>" + msg + "</li>")
+            }
+
+        }
+    </script>
+}

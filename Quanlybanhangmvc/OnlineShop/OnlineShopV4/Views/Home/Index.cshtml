@@ -1,0 +1,164 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var NewProducts = (List<Model.EF.m_product>)ViewBag.NewProducts;
+    var NewFeatureProducts = (List<Model.EF.m_product>)ViewBag.NewFeatureProducts;
+    var slides = (List<Model.EF.m_slide>)ViewBag.Slides;
+}
+
+@section slide{
+    <script>
+        var slideIndex = 1;
+        showSlides(slideIndex);
+
+        function plusSlides(n) {
+            showSlides(slideIndex += n);
+        }
+
+        function currentSlide(n) {
+            showSlides(slideIndex = n);
+        }
+
+        function showSlides(n) {
+            var i;
+            var slides = document.getElementsByClassName("mySlides");
+            var dots = document.getElementsByClassName("dot");
+            if (n > slides.length) { slideIndex = 1 }
+            if (n < 1) { slideIndex = slides.length }
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+            }
+            slides[slideIndex - 1].style.display = "block";
+            dots[slideIndex - 1].className += " active";
+        }
+    </script>
+}
+
+<div class="header_bottom" style="margin-left:160px">
+    <div class="header_bottom_left">
+        <div class="categories">
+            @{ Html.RenderAction("ProductCatetory", "Product");}
+        </div>
+    </div>
+    <div class="slideshow-container">
+
+        <div class="mySlides fade-3">
+            <div class="numbertext">1 / 5</div>
+            <img class="Myslide" src="/Assets/admin/images/slide-1.jpg" />
+        </div>
+
+        <div class="mySlides fade-3">
+            <div class="numbertext">2 / 5</div>
+            <img class="Myslide" src="/Assets/admin/images/slide-2.jpg" />
+        </div>
+
+        <div class="mySlides fade-3">
+            <div class="numbertext">3 / 5</div>
+            <img class="Myslide" src="/Assets/admin/images/slide-3.jpg" />
+        </div>
+
+        <div class="mySlides fade-3">
+            <div class="numbertext">4 / 5</div>
+            <img class="Myslide" src="/Assets/admin/images/slide-4.jpg" />
+        </div>
+
+        <div class="mySlides fade-3">
+            <div class="numbertext">5 / 5</div>
+            <img class="Myslide" src="/Assets/admin/images/slide-5.jpg" />
+        </div>
+
+        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+        <a class="next" onclick="plusSlides(1)">&#10095;</a>
+
+    </div>
+    <br>
+
+    <div style="text-align:center;margin-left:230px;">
+        <span class="dot" onclick="currentSlide(1)"></span>
+        <span class="dot" onclick="currentSlide(2)"></span>
+        <span class="dot" onclick="currentSlide(3)"></span>
+        <span class="dot" onclick="currentSlide(4)"></span>
+        <span class="dot" onclick="currentSlide(5)"></span>
+    </div>
+    <div class="clear"></div>
+</div>
+
+<div class="wrap">
+    <div class="content">
+        <div class="content_top">
+            <div class="heading">
+                <h3>Sản phẩm mới</h3>
+            </div>
+        </div>
+        <div class="section group">
+            @foreach (var item in NewProducts)
+            {
+                var url = "/chi-tiet/" + item.MetaTitle + "-" + item.ID;
+                <div class="grid_1_of_5 images_1_of_5 card-product">
+                    @if (item.Quality > 0)
+                    {
+                        <div class="product-sale">
+                            <span>Sale</span>@item.Quality<span>%</span>
+                        </div>
+                    }
+                    else
+                    {
+
+                    }
+                    <a href="@url"><img src="@item.Image_P" alt="@item.Name" /></a>
+                    <h2 class="product-item"><a href="">@item.Name</a></h2>
+                    <div class="price-details">
+                        <div class="price-number">
+                            <p><span class="rupees">@(item.Price.HasValue?item.Price.Value.ToString("N0"):"Liên hệ")</span></p>
+                        </div>
+                        <div class="add-cart">
+                            <h4><a href="/them-gio-hang?productID=@item.ID&quantity=1">Thêm vào giỏ</a></h4>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            }
+
+        </div>
+        <div class="content_bottom">
+            <div class="heading">
+                <h3>Sản phẩm hot</h3>
+            </div>
+        </div>
+        <div class="section group">
+            @foreach (var item in NewFeatureProducts)
+            {
+                var url = "/chi-tiet/" + item.MetaTitle + "-" + item.ID;
+                <div class="grid_1_of_5 images_1_of_5 card-product">
+
+                    @if (item.Quality > 0)
+                    {
+                        <div class="product-sale">
+                            <span>Sale</span>@item.Quality<span>%</span>
+                        </div>
+                    }
+                    else
+                    {
+
+                    }
+
+                    <a href="@url"><img src="@item.Image_P" alt="@item.Name" /></a>
+                    <h2 class="product-item"><a href="preview.html">@item.Name</a></h2>
+                    <div class="price-details">
+                        <div class="price-number">
+                            <p><span class="rupees">@(item.Price.HasValue?item.Price.Value.ToString("N0"):"Liên hệ")</span></p>
+                        </div>
+                        <div class="add-cart">
+                            <h4><a href="/them-gio-hang?productID=@item.ID&quantity=1">Thêm vào giỏ</a></h4>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

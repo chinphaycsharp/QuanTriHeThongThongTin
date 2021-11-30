@@ -1,0 +1,92 @@
+﻿@using OnlineShopV4.Common;
+@{
+    Layout = null;
+}
+
+<!-- HEADER DESKTOP-->
+<header class="header-desktop3 d-none d-lg-block">
+    <div class="section__content section__content--p35">
+        <div class="header3-wrap">
+            <div class="header__logo">
+                <a href="/Employee/Home/index">
+                    <img src="/Assets/admin-index/images/icon/logo-white.png" />
+                </a>
+            </div>
+            <div class="header__navbar">
+                <ul class="list-unstyled">
+                    <li>
+                        <a href="/Employee/ProductBill/index">
+                            <i class="fas fa-shopping-basket"></i>
+                            <span class="bot-line"></span>Hóa đơn
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/Employee/Product/index">
+                            <i class="fas fa-trophy"></i>
+                            <span class="bot-line"></span>Sản phẩm
+                        </a>
+                    </li>
+                    <li class="has-sub">
+                        <a href="/Employee/Content/index">
+                            <i class="fas fa-copy"></i>
+                            <span class="bot-line"></span>Quản lý tin tức
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+            <div class="header__tool">
+                <div class="header-button-item js-item-menu">
+                    <i class="zmdi zmdi-settings"></i>
+                    <div class="setting-dropdown js-dropdown">
+                        <div class="account-dropdown__body">
+                            <div class="account-dropdown__item">
+                                <a href="/Employee/Information/index">
+                                    <i class="zmdi zmdi-account"></i>Thông tin cá nhân
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="account-wrap">
+                    <div class="account-item account-item--style2 clearfix js-item-menu">
+                        <div class="image">
+                            <img src="/Assets/admin-index/images/icon/avatar-01.jpg" alt="John Doe" />
+                        </div>
+                        <div class="content">
+                            @if (Session[commonConst.user_employee] != null)
+                            {
+                                userLogin a = Session[commonConst.user_employee] as userLogin;
+                                @a.Name_user;
+                            }
+                        </div>
+                        <div class="account-dropdown js-dropdown">
+
+                            <div class="account-dropdown__body">
+                                <div class="account-dropdown__item">
+                                    <a href="#" id="btn-click" data-toggle="modal" data-target="#exampleModal">
+                                        <i class="zmdi zmdi-power"></i>Thông tin cá nhân
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="account-dropdown__body">
+                                <div class="account-dropdown__item">
+                                    <a href="/Employee/Chat/index">
+                                        <i class="zmdi zmdi-notifications"></i>Tin nhắn
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="account-dropdown__footer">
+                                <a href="/Employee/Login">
+                                    <i class="zmdi zmdi-power"></i>Logout
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</header>
+<!-- END HEADER DESKTOP-->

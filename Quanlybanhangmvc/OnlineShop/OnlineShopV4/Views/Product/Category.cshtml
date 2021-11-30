@@ -1,0 +1,102 @@
+﻿@model List<Model.ViewModel.ProductViewModel>
+@{
+    var Category = (Model.EF.m_productCatetory)ViewBag.Category;
+    ViewBag.Title = Category.Name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content">
+    <div class="content_top">
+        <div class="heading">
+            <h3>@Category.Name</h3>
+        </div>
+    </div>
+
+    <div class="section group" style="margin-left:110px">
+        <div class="row text-center">
+        </div>
+
+
+        @foreach (var item in Model)
+        {
+            var link = "/chi-tiet/" + item.MetaTitle + "-" + item.ID;
+            <div class="grid_1_of_5 images_1_of_5 card-product">
+
+                @if (item.Quality > 0)
+                {
+                    <div class="product-sale">
+                        <span>Sale</span>@item.Quality<span>%</span>
+                    </div>
+                }
+                else
+                {
+
+                }
+
+                <a href="@link"><img style="width:100px; height:100px" src="@item.Images" alt="@item.MetaTitle" /></a>
+                <h2><a class="product-item" style="font-size:16px" href="preview.html">@item.Name</a></h2>
+                <span>@item.CateName</span>
+                <div class="price-details">
+                    <div class="price-number">
+                        <p><span class="rupees">@(item.Price.HasValue?item.Price.Value.ToString("N0"):"Liên hệ")</span></p>
+                    </div>
+
+                    <div class="clear"></div>
+                </div>
+                <div class="add-cart">
+                    @if (item.Status)
+                    {
+                        <h4><a style="font-size:16px" href="/them-gio-hang?productID=@item.ID&quantity=1">Thêm vào giỏ</a></h4>
+                    }
+                    else
+                    {
+                        <h4><a style="font-size:16px" href="/lien-he">liên hệ</a></h4>
+                    }
+                </div>
+            </div>
+        }
+        <div class="clear"></div>
+        @if (ViewBag.TotalPage > 1)
+        {
+            var pageDisplay = (int)ViewBag.MaxPage;
+            int totalPage = (int)ViewBag.TotalPage;
+            int currentPage = ((int)ViewBag.Page);
+
+            // Create numeric links
+            var startPageIndex = Math.Max(1, currentPage - pageDisplay / 2);
+            var endPageIndex = Math.Min(totalPage, currentPage + pageDisplay / 2);
+            var link = "/san-pham/" + Category.MetaTitle + "-" + Category.Id;
+            <nav>
+                <ul class="pagination">
+                    @if (currentPage > ViewBag.First)
+                    {
+                        <li><a href="@link?page=@ViewBag.First" title="Trang đầu" class="first"><i class="fa fa-angle-double-left"></i></a></li>
+                        <li><a href="@link?page=@ViewBag.Prev" title="Trang trước" class="prev"><i class="fa fa-angle-left"></i></a></li>
+
+                    }
+                    @for (int i = startPageIndex; i <= endPageIndex; i++)
+                    {
+                        if (currentPage == i)
+                        {
+                            <li><a href="@link?Page=@i" class="active" title="Trang @i">@i</a></li>
+                        }
+                        else
+                        {
+                            <li><a href="@link?Page=@i" title="Trang @i" class="pos">@i</a></li>
+                        }
+                    }
+                    @if (currentPage < totalPage)
+                    {
+                        <li><a href="@link?page=@ViewBag.Next" title="Trang sau" class="first"><i class="fa fa-angle-double-left"></i></a></li>
+                        <li><a href="@link?page=@ViewBag.Last" title="Trang Trang cuối" class="prev"><i class="fa fa-angle-left"></i></a></li>
+                    }
+                </ul>
+            </nav>
+
+        }
+        else
+        {
+            <span>Không có bản ghi nào</span>
+        }
+    </div>
+</div>

@@ -1,0 +1,42 @@
+﻿@model List<Model.EF.m_menu>
+<div class="headertop_desc">
+    <div class="wrap">
+        <div class="nav_list">
+            @{
+                var sec = (OnlineShopV4.Common.userLogin)Session[OnlineShopV4.Common.commonConst.user_client];
+            }
+            @if (sec == null)
+            {
+                <ul>
+                    @foreach (var item in Model)
+                    {
+                        <li><a href="@item.Link" target="@item.Target_m">@item.Text_M</a></li>
+                    }
+                </ul>
+            }
+            else
+            {
+                <ul>
+                    @foreach (var item in Model)
+                    {
+                        var o = Model.Where(x => x.ID == 6).Single();
+                        if (o.Text_M == "Đăng nhập")
+                        {
+                            o.Text_M = "";
+                        }
+                        var o1 = Model.Where(x => x.ID == 7).Single();
+                        if (o1.Text_M == "Đăng ký")
+                        {
+                            o1.Text_M = "";
+                        }
+                        <li><a href="@item.Link" target="@item.Target_m">@item.Text_M</a></li>
+                    }
+                </ul>
+                <span style="font-size:16px;margin-left:980px;margin-top:-10px;color:white">Xin Chào: @sec.Name_user <span>|@Html.ActionLink("Thoát", "Logout", "User")</span></span>
+
+            }
+
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>

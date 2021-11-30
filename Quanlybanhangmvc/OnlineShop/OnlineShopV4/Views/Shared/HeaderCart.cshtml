@@ -1,0 +1,25 @@
+﻿@model List<OnlineShopV4.Models.CartItem>
+<div class="cart">
+    <p>
+        <span>Giỏ hàng</span><div id="dd" class="wrapper-dropdown-2">
+                                 <p style="font-size:14px"> @Model.Count sản phẩm</p>
+            <ul class="dropdown">
+                @if (Model.Count > 0)
+                {
+                    foreach (var item in Model)
+                    {
+                        var link = "/chi-tiet/" + item.Product.MetaTitle + "-" + item.Product.ID;
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td><a href="@link"><h4>@item.Product.Name</h4></a>
+                                </td>
+                                <td> <a href="@link"><img style="width:60px;height:60px" src="@item.Product.Image_P" width="100" /></a></td>
+
+                        </tbody>
+                    </table>                }
+                                }
+            </ul>
+        </div>
+    </p>
+</div>

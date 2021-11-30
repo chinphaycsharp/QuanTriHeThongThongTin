@@ -1,0 +1,140 @@
+﻿@using OnlineShopV4.Common;
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+    <div id="chat-client">
+        <input style="display:none" type="text" id="hNanme" value="@ViewBag.Name" />
+        <input style="display:none" type="text" id="hNanme1" value="@ViewBag.NameClient" />
+        <div class="container-1" id="divChat">
+            <h2 id="welcome"></h2>
+
+        </div>
+        <div class="container">
+            <div class="chat-content-wrapper">
+                <ul id="content">
+                </ul>
+            </div>
+
+            <div class="footer-chat">
+                <input type="text" id="txtMessage" placeholder="nhập tin nhắn" />
+                <button class="btn btn-success" id="btnSend">Send</button>
+            </div>
+        </div>
+    </div>
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            loadDataUser();
+            loadDataAdmin();
+        });
+
+        function loadDataUser() {
+            $.ajax({
+                url: "/Admin/Chat/GetUserMess",
+                type: "GET",
+                dataType: "json",
+                success: function (result) {
+                    $.each(result, function (key, item) {
+                        console.log("Day la user");
+                        console.log(item.Id);
+                        console.log(item.Name_receive);
+                        console.log(item.Name_send);
+                        console.log(item.Content);
+                        console.log(item.SendDate);
+                    });
+                },
+                error: function (errormess) {
+                    console.log(errormess);
+                }
+            })
+        }
+
+        function loadDataAdmin() {
+            $.ajax({
+                url: "/Admin/Chat/GetAdminMess",
+                type: "GET",
+                dataType: "json",
+                success: function (result) {
+                    $.each(result, function (key, item) {
+                        console.log("Day la admin");
+                        console.log(item);
+                        const name = item.Name_send;
+                        const user = item.Name_receive;
+                        const msg = item.Content;
+                        const date = moment(Number(item.SendDate.slice(6, 19))).format('DD-MM-YYYY HH:m:s');
+                        $('#content').append(`<li class='${name == user ? "right-blue" : ""} chat-text'>
+                            <div class="date-time">${date}</div>
+                            <div class="chat-item-content">
+                                <span>${name}: </span>
+                                <span class="message">${msg}</span>
+                            <div>
+                        </li>`)
+                    });
+                },
+                error: function (errormess) {
+                    console.log(errormess);
+                }
+            })
+        }
+
+        $(function () {
+            var chat = $.connection.DemoChat;
+            console.log(chat);
+            loadClient(chat);
+            $.connection.hub.start().done(function () {
+                $('#btnSend').click(function () {
+                    var msg = $('#txtMessage').val();
+                    var name = $('#hNanme').val();
+                    var name1 = $('#hNanme1').val();
+                    chat.server.message(name, msg);
+                    $('#txtMessage').val(' ').focus();
+
+                    var data = {
+                        Name_receive: name1,
+                        Name_send: name,
+                        Content: msg,
+                        SendDate: "@DateTime.Now"
+                    };
+
+                    $.ajax({
+                        url: "/Admin/Chat/Create",
+                        data: {
+                        Name_receive: name1,
+                        Name_send: name,
+                        Content: msg,
+                        SendDate: "@DateTime.Now"
+                    },
+                        type: "POST",
+                        dataType: "json",
+                        success: function (result) {
+                            console.log(data);
+                        },
+                        error: function (errormess) {
+                            console.log(errormess);
+                        }
+                    })
+                });
+            })
+
+        })
+
+        function loadClient(chat) {
+            console.log(chat);
+            var date = '@DateTime.Now'
+            chat.client.message = function (name, msg) {
+                const user = $('#hNanme').val();
+                console.log(name, msg, user);
+                $('#content').append(`<li class='${name == user ? "right-blue": ""} chat-text'>
+                    <div class="date-time">${date}</div>
+                    <div class="chat-item-content">
+                        <span>${name}: </span>
+                        <span class="message">${msg}</span>
+                    <div>
+                </li>`)
+            }
+        }
+
+    </script>
+}

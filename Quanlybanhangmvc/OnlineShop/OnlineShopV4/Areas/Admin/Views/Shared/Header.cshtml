@@ -1,0 +1,132 @@
+﻿@using OnlineShopV4.Common;
+@{
+    Layout = null;
+}
+
+<!-- HEADER DESKTOP-->
+    <header class="header-desktop3 d-none d-lg-block">
+        <div class="section__content section__content--p35">
+            <div class="header3-wrap">
+                <div class="header__logo">
+                    <a href="/Admin/Home/index">
+                        <img src="/Assets/admin-index/images/icon/logo-white.png" />
+                    </a>
+                </div>
+                <div class="header__navbar">
+                    <ul class="list-unstyled">
+                        <li class="has-sub">
+                            <a href="/Admin/Account/index">
+                                <i class="fas fa-tachometer-alt"></i>Quản lý tài khoản
+                                <span class="bot-line"></span>
+                            </a>
+                            <ul class="header3-sub-list list-unstyled">
+                                <li>
+                                    <a href="/Admin/Account/DateCreateAccount">Lịch sử tạo tài khoản</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="/Admin/ProductBill/index">
+                                <i class="fas fa-shopping-basket"></i>
+                                <span class="bot-line"></span>Hoá đơn - báo cáo
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/Admin/SupplierProduct/index">
+                                <i class="fas fa-trophy"></i>
+                                <span class="bot-line"></span>Nhà sản xuất
+                            </a>
+                        </li>
+                        <li class="has-sub">
+                            <a href="#">
+                                <i class="fas fa-copy"></i>
+                                <span class="bot-line"></span>Quản lý tin tức
+                            </a>
+                            <ul class="header3-sub-list list-unstyled">
+                                <li>
+                                    <a href="/Admin/Content/index">Danh sách tin tức</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="has-sub">
+                            <a href="/Admin/Product/Index">
+                                <i class="fas fa-desktop"></i>
+                                <span class="bot-line"></span>Quản lý sản phẩm
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="header__tool">
+                    <div class="header-button-item js-item-menu">
+                        <i class="zmdi zmdi-settings"></i>
+                        <div class="setting-dropdown js-dropdown">
+                            <div class="account-dropdown__body">
+                                <div class="account-dropdown__item">
+                                    <a href="/Admin/Information/index">
+                                        <i class="zmdi zmdi-account"></i>Thông tin cá nhân
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="account-dropdown__body">
+                                <div class="account-dropdown__item">
+                                    <a href="#">
+                                        <i class="zmdi zmdi-email"></i>Email
+                                    </a>
+                                </div>
+                                <div class="account-dropdown__item">
+                                    <a href="#">
+                                        <i class="zmdi zmdi-notifications"></i>Thông báo
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="account-wrap">
+                        <div class="account-item account-item--style2 clearfix js-item-menu">
+                            <div class="image">
+                                <img src="/Assets/admin-index/images/icon/avatar-01.jpg" alt="John Doe" />
+                            </div>
+                            <div class="content">
+                                @if (Session[commonConst.user_session] != null)
+                                {
+                                    userLogin a = Session[commonConst.user_session] as userLogin;
+                                    @a.Name_user;
+                                }
+                            </div>
+                            <div class="account-dropdown js-dropdown">
+
+                                <div class="account-dropdown__body">
+                                    <div class="account-dropdown__item">
+                                        <a href="#" id="btn-click" data-toggle="modal" data-target="#exampleModal">
+                                            <i class="zmdi zmdi-power"></i>Thông tin cá nhân
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="account-dropdown__body">
+                                    <div class="account-dropdown__item">
+                                        <a href="/Admin/Chat/index" id="btn-click" data-toggle="modal" data-target="#exampleModal">
+                                            <i class="fa-mail-reply"></i>Tin nhắn
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="account-dropdown__footer">
+                                    <a href="/Admin/Login">
+                                        <i class="zmdi zmdi-power"></i>Logout
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Button trigger modal -->
+        <button type="button" id="btn-button-open-modal" style="position: absolute; top: 100px; left: 0; display:none" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalxxx">
+            Launch demo modal
+        </button>
+
+
+    </header>
+<!-- END HEADER DESKTOP-->

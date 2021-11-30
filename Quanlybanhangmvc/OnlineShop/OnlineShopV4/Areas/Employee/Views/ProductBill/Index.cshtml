@@ -1,0 +1,72 @@
+﻿@model PagedList.IPagedList<Model.EF.m_product_bill>
+@using PagedList.Mvc
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Employee/Views/Shared/_Layout.cshtml";
+}
+@section jsFooter{
+
+    <script src="/Assets/client/js/controller/EmployeeController.js"></script>
+}
+<br />
+<div class="au-breadcrumb-content">
+    @using (Html.BeginForm("Index", "ProductBill", FormMethod.Get))
+    {
+        <form class="au-form-icon--sm" action="" method="post">
+            <input style="margin-left:1300px;border-radius:10px" class="au-input--w300 au-input--style2" type="text" name="Search" placeholder="Search for datas &amp; reports...">
+            <button class="au-btn-submit2" type="submit">
+                <i class="fa fa-search"></i>
+            </button>
+        </form>
+    }
+</div>
+<br />
+
+<div class="bs-example widget-shadow" style="margin-left:25px">
+    <h4 style="margin-left:20px">Danh sách tài khoản:</h4>
+    <table class="table table-bordered" style="margin-left:20px">
+        <thead>
+            <tr>
+                <th>STT</th>
+                <th>Tên</th>
+                <th>Số điện thoại</th>
+                <th>Địa chỉ</th>
+                <th>Email</th>
+                <th>Ngày tạo</th>
+                <th>Trạng thái</th>
+                <th colspan="2">
+                    Chức năng
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr id="row_@item.Id">
+                    <th>@item.Id</th>
+                    <th>@item.ShipName</th>
+                    <th>@item.shipPhone</th>
+                    <th>@item.ShipAddress</th>
+                    <th>@item.ShipEmail</th>
+                    <th>@item.CreatedDate</th>
+                    <th><a href="#" class="btn-active-2" data-id="@item.Id">@(Convert.ToInt32(item.status_b) > 0 ? "Đã giao" : "chưa giao")</a></th>
+                    <td>
+                        <button class="btn btn-success" style=""><a href="/Admin/ProductBill/DetailBill/@item.Id" style="color:#000000">Chi tiết</a></button>
+                        <button class="btn btn-primary" style=""><a href="/Admin/ProductBill/Edit/@item.Id" style="color:#000000">Sửa</a></button>
+
+                        @Ajax.ActionLink("Xoá", "Delete", new { @id = item.Id }, new AjaxOptions
+                   {
+                       Confirm = "Bạn có chắc muốn xóa bản ghi này ?",
+                       OnComplete = "$('#row_" + @item.Id + "').remove()",
+                       HttpMethod = "Delete"
+                   }, new { @class = "btn btn-warning" })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="page-wrapper >
+        @Html.PagedListPager(Model, page => Url.Action("Index", "ProductBill", new { page }))
+    </div>
+</div>

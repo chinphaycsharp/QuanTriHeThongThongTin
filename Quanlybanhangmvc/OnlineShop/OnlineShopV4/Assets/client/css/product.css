@@ -1,0 +1,26 @@
+﻿body {
+
+}
+.card-product{
+    position: relative;
+} 
+.product-sale {
+    font-size:9px;
+    position:absolute;
+    top: 0px;
+    left: 0px;
+    background-color: red;
+    color: #fff;
+    padding:5px 10px;
+}
+
+.product-item {
+    height: 38px;
+    overflow: hidden;
+    display: block;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    cursor: pointer;
+}
+

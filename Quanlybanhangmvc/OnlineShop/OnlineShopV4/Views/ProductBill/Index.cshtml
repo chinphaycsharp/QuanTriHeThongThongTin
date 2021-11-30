@@ -1,0 +1,46 @@
+﻿@model IEnumerable<OnlineShopV4.Models.orderHistory>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 style="margin-left:50px">Lịch sử mua hàng</h2>
+
+<table class="table"  style="margin-left:50px">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductBillId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CustomerId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateBuy)
+        </th>
+        <th>@Html.DisplayNameFor(Model => Model.products)</th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductBillId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CustomerId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateBuy)
+        </td>
+        <td>
+            @foreach (var item1 in item.products)
+            {
+                <span>@item1.Name</span> <span>@item1.Price VNĐ</span>
+                <img style="width:65px;height:65px;border:solid 2px;margin-top:5px" src="@item1.Image_P" alt="@item1.MetaTitle"><br />
+
+            }
+        </td>
+    </tr>
+}
+
+</table>

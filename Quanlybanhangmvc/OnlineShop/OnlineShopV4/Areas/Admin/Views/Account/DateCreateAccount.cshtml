@@ -1,0 +1,35 @@
+﻿@model PagedList.IPagedList<Model.EF.m_login>
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "DateCreateAccount";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+
+<div class="bs-example widget-shadow">
+    <h4 style="margin-left:50px">Lịch sử tài khoản:</h4>
+    <table class="table table-bordered" style="margin-left:100px">
+        <thead>
+            <tr>
+                <th>STT</th>
+                <th>Taì khoản</th>
+                <th>Ngày tạo</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr id="row_@item.Id">
+                    <th>@item.Id</th>
+                    <th>@item.Name_user</th>
+                    <th>@item.CreatedDate</th>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div style="margin-left:1100px">
+        @Html.PagedListPager(Model, page => Url.Action("DateCreateAccount", "Account", new { page }))
+    </div>
+</div>
+

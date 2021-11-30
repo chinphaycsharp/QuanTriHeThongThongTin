@@ -1,0 +1,43 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var News = (List<Model.EF.m_information>)ViewBag.News;
+}
+
+
+<div class="wrap">
+    <div class="content">
+        <div class="content_top">
+            <div class="heading">
+                <h3>Tin tức</h3>
+            </div>
+        </div>
+        <div class="section group" style="margin-top:10px">
+            @foreach (var item in News)
+            {
+                var link = "/chi-tiet/" + item.Metatile + "-" + item.Id;
+                <div class="card-body p-b-20">
+                    <div class="list-group" style="border:2px solid black;height:300px">
+                        <h3><b>@item.Name</b></h3>
+                        <div class="pull-left">
+                            <img class="lg-item-img" src="@item.Image_P" alt="">
+                        </div>
+                        <div class="media-body">
+                            <div class="pull-left">
+                                <div class="lg-item-heading">@Html.Raw(item.Content)</div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="pull-right">
+                    <button class="btn btn-success"><a href="@link">Xem chi tiết</a></button>
+                </div>
+                <br />
+                <br />
+            }
+
+        </div>
+    </div>
+</div>

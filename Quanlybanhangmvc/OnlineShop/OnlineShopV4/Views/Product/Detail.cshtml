@@ -1,0 +1,120 @@
+﻿@model Model.EF.m_product
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var catetory = (Model.EF.m_productCatetory)ViewBag.Catetory;
+    var RelateProduct = (List<Model.EF.m_product>)ViewBag.RelateProduct;
+    var NewFeatureProducts = (List<Model.EF.m_product>)ViewBag.NewFeatureProducts;
+    var NewProducts = (List<Model.EF.m_product>)ViewBag.NewProducts;
+}
+
+<div class="wrap">
+    <div class="content_top">
+        <div class="back-links">
+            <p><a href="/">Trang chủ</a> >>>> <a href="/san-pham/@Model.MetaTitle-@catetory.Id" class="active">@Model.Descreption</a></p>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="section group">
+        <div class="cont-desc span_1_of_2">
+            <div class="product-details">
+                <div class="grid images_3_of_2">
+                    <img src="@Model.Image_P" alt="" />
+                </div>
+                <div class="desc span_3_of_2">
+                    <h2>
+                        @Model.Name<span style="background-color: red; color: #fff; padding: 5px 10px;">
+                        @if (Model.Quality > 0)
+                        {
+                            <span>Sale</span>@Model.Quality<span>%</span>
+                        }
+                        else
+                        {
+                            <span style="display:none"></span>
+                        }
+                    </span>
+                </h2>
+                <div class="price">
+                    <p>Price: <span>@(Model.Price.HasValue? Model.Price.Value.ToString("N0"):"Liên hệ") VNĐ</span></p>
+                </div>
+                <div class="available">
+                    <ul>
+                        <li><span>Số người mua:</span> &nbsp; @Model.Viewcount</li>
+                        <li><span>Trạng thái:</span>&nbsp; @(Convert.ToInt32(Model.Status_p) > 0 ? "Còn hàng" : "Hết hàng")</li>
+                    </ul>
+                </div>
+                <div class="share-desc">
+                    <div class="share">
+                        <p>Số lượng mua</p><input name="NotesSiteName" class="text_box" type="text">
+                    </div>
+                    <p>@ViewBag.NotesSiteName</p>
+                    <div class="button">
+                        <span>
+                            @if (Model.Status_p)
+                            {
+                                <a style="font-size:16px" href="/them-gio-hang?productID=@Model.ID&quantity=1">Thêm vào giỏ</a>
+                            }
+                            else
+                            {
+                                <a style="font-size:16px" href="/lien-he">Liên hệ</a>
+                            }
+
+                        </span>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="wish-list">
+                    <ul>
+                        <li class="wish"><a href="#">Thêm vào yêu thích</a></li>
+                        <li class="compare"><a href="#">So sánh</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="product_desc">
+            <h2><b>Chi Tiết Sản Phẩm</b></h2>
+            @Html.Raw(Model.Detail);
+        </div>
+    </div>
+    <div class="rightsidebar span_3_of_1 sidebar">
+        <div class="categories">
+            @{ Html.RenderAction("ProductCatetory", "Product");}
+        </div>
+
+    </div>
+</div>
+<div class="content_bottom">
+    <div class="heading">
+        <h3>Sản phẩm Liên quan</h3>
+    </div>
+</div>
+<div class="section group">
+    @foreach (var item in RelateProduct)
+    {
+        var url = "/chi-tiet/" + item.MetaTitle + "-" + item.ID;
+        <div class="grid_1_of_5 images_1_of_5">
+            <a href="@url"><img src="@item.Image_P" alt="@item.Name" /></a>
+            <h2><a href="">@item.Name</a></h2>
+            <div class="price-details">
+                <div class="price-number">
+                    <p><span class="rupees">@(item.Price.HasValue?item.Price.Value.ToString("N0"):"Liên hệ")</span></p>
+                </div>
+                <div class="add-cart">
+                    @if (item.Status_p)
+                    {
+                        <h4><a href="/them-gio-hang?productID=@item.ID&quantity=1">Thêm vào giỏ</a></h4>
+                    }
+                    else
+                    {
+                        <h4><a href="/lien-he">liên hệ</a></h4>
+                    }
+
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+    }
+</div>
+</div>
+

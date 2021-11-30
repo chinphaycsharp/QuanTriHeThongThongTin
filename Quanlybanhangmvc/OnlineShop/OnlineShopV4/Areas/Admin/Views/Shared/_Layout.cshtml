@@ -1,0 +1,316 @@
+﻿@using OnlineShopV4.Common;
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="au theme template">
+    <meta name="author" content="Hau Nguyen">
+    <meta name="keywords" content="au theme template">
+
+    <!-- Title Page-->
+    <title>Dashboard 3</title>
+
+    <!-- Fontfaces CSS-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link href="/Assets/admin-index/css/font-face.css" rel="stylesheet" />
+    <link href="/Assets/admin-index/vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
+    <link href="/Assets/admin-index/vendor/font-awesome-5/css/fontawesome-all.min.css" rel="stylesheet" media="all">
+    <link href="/Assets/admin-index/vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
+
+    <!-- Bootstrap CSS-->
+    <link href="/Assets/admin-index/vendor/bootstrap-4.1/bootstrap.min.css" rel="stylesheet" media="all">
+    <link href="/Assets/admin-index/css/print.min.css" rel="stylesheet" />
+    <!-- Vendor CSS-->
+    <link href="/Assets/admin-index/vendor/animsition/animsition.min.css" rel="stylesheet" media="all">
+    <link href="/Assets/admin-index/vendor/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet" media="all">
+    <link href="/Assets/admin-index/vendor/wow/animate.css" rel="stylesheet" media="all">
+    <link href="/Assets/admin-index/vendor/css-hamburgers/hamburgers.min.css" rel="stylesheet" media="all">
+    <link href="/Assets/admin-index/vendor/slick/slick.css" rel="stylesheet" media="all">
+    <link href="/Assets/admin-index/vendor/select2/select2.min.css" rel="stylesheet" media="all">
+    <link href="/Assets/client/css/chat.css" rel="stylesheet" />
+    <link href="/Assets/admin-index/vendor/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" media="all">
+
+    <!-- Main CSS-->
+
+    <link href="/Assets/admin-index/css/theme.css" rel="stylesheet" />
+    <style rel="stylesheet">
+        #waittingList > .modal-config {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: #9e9e9e9c;
+            z-index: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            display: none;
+        }
+
+            #waittingList > .modal-config > .modal-container {
+                min-width: 600px;
+                min-height: 200px;
+                background: #fff;
+                box-shadow: 0 0.0625rem 0.125rem 0 rgba(0,0,0,.1);
+                position: absolute;
+                top: 200px;
+                height: 360px;
+                line-height: 40px;
+                border-radius: 10px;
+            }
+
+                #waittingList > .modal-config > .modal-container > .modal-title {
+                    border-radius: 10px;
+                    height: 40px;
+                    background: #3f51b5;
+                    line-height: 35px;
+                    display: flex;
+                    justify-content: space-between;
+                    padding-left: 10px;
+                    color: #f5f5f5;
+                    font-size: 20px;
+                }
+
+                    #waittingList > .modal-config > .modal-container > .modal-title > button {
+                        width: 35px;
+                        height: 35px;
+                        font-size: 20px;
+                        color: red;
+                        background-color: transparent;
+                        border: none;
+                        outline: none;
+                    }
+
+                #waittingList > .modal-config > .modal-container > .modal-content {
+                    margin-bottom: 10px;
+                }
+
+                    #waittingList > .modal-config > .modal-container > .modal-content > .form-item {
+                        margin-top: 10px;
+                        display: flex;
+                        height: 30px;
+                        line-height: 30px;
+                    }
+
+                        #waittingList > .modal-config > .modal-container > .modal-content > .form-item > .form-label {
+                            flex: 2;
+                            text-align: right;
+                            padding-right: 10px;
+                        }
+
+                        #waittingList > .modal-config > .modal-container > .modal-content > .form-item > .form-content {
+                            flex: 7;
+                        }
+
+                            #waittingList > .modal-config > .modal-container > .modal-content > .form-item > .form-content > #saveConfig {
+                                padding: 5px 10px;
+                                background: #3f51b5;
+                                color: #fff;
+                                border-radius: 4px;
+                            }
+
+                            #waittingList > .modal-config > .modal-container > .modal-content > .form-item > .form-content > select {
+                                padding: 2px 5px;
+                                border: 1px solid #3f51b5;
+                                color: #000;
+                                border-radius: 4px;
+                            }
+
+                            #waittingList > .modal-config > .modal-container > .modal-content > .form-item > .form-content > input {
+                                padding: 2px 5px;
+                                border: 1px solid #3f51b5;
+                                color: #000;
+                                border-radius: 4px;
+                            }
+
+        .container-1 {
+            border: 2px solid #dedede;
+            background-color: #f1f1f1;
+            border-radius: 5px;
+            padding: 10px;
+            margin: 10px 0;
+        }
+
+        /* Darker chat container */
+        .darker {
+            border-color: #ccc;
+            background-color: #ddd;
+        }
+
+        /* Clear floats */
+        .container-1::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+
+        /* Style images */
+        .container-1 img {
+            float: left;
+            max-width: 60px;
+            width: 100%;
+            margin-right: 20px;
+            border-radius: 50%;
+        }
+
+            /* Style the right image */
+            .container-1 img.right {
+                float: right;
+                margin-left: 20px;
+                margin-right: 0;
+            }
+
+        /* Style time text */
+        .time-right {
+            float: right;
+            color: #aaa;
+        }
+
+        /* Style time text */
+        .time-left {
+            float: left;
+            color: #999;
+        }
+
+        .border-arow {
+            margin-top: 20px;
+            width: 600px;
+            height: 500px;
+            border-radius: 5px;
+            border-style: solid;
+            border-color: black;
+        }
+
+        .border-arow-text {
+            width: 400px;
+            border-radius: 5px;
+            border-style: solid;
+            border-color: black;
+        }
+    </style>
+
+</head>
+
+<body class="animsition">
+    <div class="page-wrapper">
+        @RenderPage("Header.cshtml")
+        <!-- HEADER MOBILE-->
+        <!-- END HEADER MOBILE -->
+        <!-- PAGE CONTENT-->
+
+        @if (TempData["AlertMessage"] != null)
+        {
+            <div id="AlertBox" class="sufee-alert alert with-close alert-primary alert-dismissible fade @TempData["AlertType"] hide" style="width:500px">
+                <p>@TempData["AlertMessage"]</p>
+            </div>
+        }
+        <!-- Modal -->
+        <div id="waittingList">
+            <div class="modal-config">
+                <div class="modal-container">
+                    <div class="modal-title">
+                        <div>Setting</div>
+                        <button><i class="fas fa-times"></i></button>
+                    </div>
+                    <form>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1" style="margin-left:60px">Tên tài khoản</label>
+                            <input type="text" style="width:400px;margin-left:85px" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="                                @if (Session[commonConst.user_session] != null)
+                                {
+                                    userLogin a = Session[commonConst.user_session] as userLogin;
+                                    @a.Name_user;
+                                }">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1" style="margin-left:60px">Email</label>
+                            <input type="text" class="form-control" style="width:400px;margin-left:85px" id="exampleInputPassword1" placeholder="                                @if (Session[commonConst.user_session] != null)
+                                {
+                                    userLogin a = Session[commonConst.user_session] as userLogin;
+                                    @a.Email;
+                                }">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1" style="margin-left:60px">Quyền</label>
+                            <input type="text" class="form-control" style="width:400px;margin-left:85px" id="exampleInputPassword1" placeholder="                                @if (Session[commonConst.user_session] != null)
+                                {
+                                    userLogin a = Session[commonConst.user_session] as userLogin;
+                                    @a.Email
+                                }">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        @RenderBody()
+    </div>
+
+    <!-- Jquery JS-->
+
+    <script src="/Assets/admin-index/js/bootstrap-datetimepicker.js"></script>
+    <script src="/Assets/admin-index/vendor/jquery-3.2.1.min.js"></script>
+    <script src="/Assets/admin-index/vendor/jquery-3.2.1.min.js"></script>
+
+
+    <!-- Bootstrap JS-->
+    <script src="/Assets/admin-index/vendor/bootstrap-4.1/popper.min.js"></script>
+    <script src="/Assets/admin-index/vendor/bootstrap-4.1/bootstrap.min.js"></script>
+
+    <!-- Vendor JS       -->
+    <script src="/Assets/admin-index/vendor/slick/slick.min.js">
+    </script>
+    <script src="/Assets/admin-index/vendor/wow/wow.min.js"></script>
+    <script src="/Assets/admin-index/vendor/animsition/animsition.min.js"></script>
+    <script src="/Assets/admin-index/vendor/bootstrap-progressbar/bootstrap-progressbar.min.js">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="/Assets/admin-index/vendor/counter-up/jquery.waypoints.min.js"></script>
+    <script src="/Assets/admin-index/vendor/counter-up/jquery.counterup.min.js">
+    </script>
+    <script src="/Assets/admin-index/vendor/circle-progress/circle-progress.min.js"></script>
+    <script src="/Assets/admin-index/vendor/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <script src="/Assets/admin-index/vendor/chartjs/Chart.bundle.min.js"></script>
+    <script src="/Assets/admin-index/vendor/select2/select2.min.js"></script>
+
+    <script src="~/Assets/admin-index/js/ckeditor/ckeditor.js"></script>
+
+    <!-- Main JS-->
+    <script src="/Assets/admin-index/js/main.js"></script>
+
+
+    <script src="/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="/Assets/admin-index/js/alert.js"></script>
+    <script>
+
+        const buttonClose = document.querySelector("#waittingList > .modal-config > .modal-container > .modal-title > button ");
+        $('#btn-click').on("click", function () {
+            console.log("abc")
+            const modal = document.querySelector("#waittingList > .modal-config");
+            modal.style.display = "flex";
+        });
+        buttonClose.addEventListener("click", () => {
+            const modal = document.querySelector("#waittingList > .modal-config");
+            modal.style.display = "none";
+        });
+    </script>
+    <script src="/Assets/admin-index/js/print.min.js"></script>
+    <script src="/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/Assets/admin-index/js/alert.js"></script>
+    <script src="/Scripts/jquery.signalR-2.4.1.min.js"></script>
+    <script src="/signalr/hubs"></script>
+    @RenderSection("scripts", required: false)
+    @RenderSection("jsFooter", required: false)
+    @RenderSection("ckeditor", required: false);
+</body>
+
+</html>
+<!-- end document-->
